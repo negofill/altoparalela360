@@ -259,8 +259,9 @@ function eventKrpanoLoaded (isWebVr) {
 	
 	}else{
 	
-	addKolorBox('gallery');
-addKolorMenu('panoramaMenu');
+	addKolorBox('gallery2');
+addKolorBox('gallery1');
+addKolorBox('gallery');
 
 addKolorArea('floorPlanArea');
 
@@ -278,8 +279,9 @@ function eventUnloadPlugins () {
 	
 deleteKolorFloorPlan('floorPlan');
 deleteKolorArea('floorPlanArea');
-deleteKolorMenu('panoramaMenu');
 deleteKolorBox('gallery');
+deleteKolorBox('gallery1');
+deleteKolorBox('gallery2');
 
 }
 
@@ -583,219 +585,6 @@ function showKolorArea(pPlugID, pContent)
  * @return {void}
  */
 function deleteKolorArea(pPlugID)
-{
-	if(ktools.KolorPluginList.getInstance().getPlugin(pPlugID)){
-		ktools.KolorPluginList.getInstance().removePlugin(pPlugID);
-	}
-	var parent = document.getElementById("panoDIV");
-	var child = document.getElementById(pPlugID);
-	if(parent && child){
-		parent.removeChild(child);
-	}
-}
-
-
-/**
- * @function
- * @description Add an instance of kolorMenu JS Engine, loads JS and CSS files then init and populate related plugin that's based on it.
- * @param {String} pPlugID The name of the plugin you want to give to the kolorBox instance. 
- * @return {void} 
- */
-function addKolorMenu(pPlugID) 
-{
-	if(typeof ktools.KolorPluginList.getInstance().getPlugin(pPlugID) == "undefined")
-	{
-		var kolorMenuCSS = new ktools.CssStyle("KolorMenuCSS", crossDomainTargetUrl+"indexdata/graphics/KolorMenu/kolorMenu.css");
-		var kolorMenuJS = new ktools.Script("KolorMenuJS", crossDomainTargetUrl+"indexdata/graphics/KolorMenu/KolorMenu.min.js", [], true);
-		var kolorMenuPlugin = new ktools.KolorPlugin(pPlugID);
-		kolorMenuPlugin.addScript(kolorMenuJS);
-		kolorMenuPlugin.addCss(kolorMenuCSS);
-		ktools.KolorPluginList.getInstance().addPlugin(kolorMenuPlugin.getPluginName(), kolorMenuPlugin, true);
-	}
-}
-
-/**
- * @function
- * @description Create KolorMenu and/or display it if exists.
- * @param {String} pPlugID The name of the plugin you want to init and show.
- * @return {void} 
- */
-function openKolorMenu(pPlugID)
-{
-	if(debug) { console.log("openKolorMenu "+pPlugID); }
-	
-	if(!ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered() || !ktools.KolorPluginList.getInstance().getPlugin(pPlugID).isInitialized() || typeof KolorMenu == "undefined"){
-		createKolorMenu(pPlugID);
-	} else {
-		ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered().showKolorMenu();
-	}
-}
-
-/**
- * @function
- * @description Init, populate and show the kolorMenu.
- * @param {String} pPlugID The name of the plugin you want to init and show.
- * @return {void} 
- */
-function createKolorMenu(pPlugID)
-{	
-	if(debug) { console.log("createKolorMenu "+pPlugID); }
-
-	//Check if the KolorMenu is loaded
-	if(!ktools.KolorPluginList.getInstance().getPlugin(pPlugID).isInitialized()  || typeof KolorMenu == "undefined")
-	{
-		err = "KolorMenu JS or XML is not loaded !";
-		if(debug){ console.log(err); }
-		//If not loaded, retry in 100 ms
-		setTimeout(function() { createKolorMenu(pPlugID); }, 100);
-		return;
-	}
-
-	//Check if the KolorMenu is instantiate and registered with the ktools.Plugin Object
-	//If not, instantiate the KolorMenu and register it.
-	if(ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered() == null)
-	{
-		ktools.KolorPluginList.getInstance().getPlugin(pPlugID).register(new KolorMenu(pPlugID, "panoDIV"));
-	}
-	
-	//Get the registered instance of KolorMenu
-	var kolorMenu = ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered();
-	
-	//If kolorMenu is not ready, populate datas
-	if(!kolorMenu.isReady())
-	{
-		var kolorMenuOptions = [];
-		
-		//Build the Options data for the KolorMenu
-		var optionLength = parseInt(getKrPanoInstance().get("ptplugin["+pPlugID+"].settings.option.count"));
-	
-		for(var i = 0; i < optionLength; i++)
-		{
-			if (getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].name","string") == 'zorder') {
-				kolorMenuOptions[getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].name","string")] = kolorStartIndex + getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].value", getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].type", "string"));
-			} else {
-				kolorMenuOptions[getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].name","string")] = getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].value", getKrValue("ptplugin["+pPlugID+"].settings.option["+i+"].type", "string"));
-			}
-		}
-		//add the device check
-		kolorMenuOptions['device'] = getKrValue('vrtourdevice','string');
-		//kolorMenuOptions['scale'] = getKrValue('vrtourdevicescale','float');
-		kolorMenu.setKolorMenuOptions(kolorMenuOptions);
-		
-		var groupLength = parseInt(getKrPanoInstance().get("ptplugin["+pPlugID+"].internaldata.group.count"));
-		var group = null;
-		
-		var itemLength = 0;
-		var item = null;
-		
-		var itemOptionsLength = 0;
-		
-		for(var j = 0; j < groupLength; j++)
-		{
-			group = new KolorMenuObject();
-			group.setName(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].name","string"));
-			if(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].titleID","string") !== '')
-				group.setTitle(ktools.I18N.getInstance().getMessage(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].titleID","string")));
-			group.setI18nText(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].titleID","string"));
-			group.setAction(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].action","string"));
-			group.setThumbnail(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].thumbnail","string"));
-			group.setSubMenu(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].subMenu","bool"));
-			group.setCssClass(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].cssClass","string"));
-			
-			itemLength = parseInt(getKrPanoInstance().get("ptplugin["+pPlugID+"].internaldata.group["+j+"].item.count"));
-			
-			for(var k = 0; k < itemLength; k++)
-			{
-				item = new KolorMenuObject();
-				item.setName(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].name","string"));
-				if(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].titleID","string") !== '')
-					item.setTitle(ktools.I18N.getInstance().getMessage(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].titleID","string")));
-				item.setI18nText(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].titleID","string"));
-				item.setAction(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].action","string"));
-				item.setThumbnail(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].thumbnail","string"));
-				item.setCssClass(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].cssClass","string"));
-				item.setParent(group);
-				
-				//Build the Options data for the item
-				itemOptionsLength = parseInt(getKrPanoInstance().get("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].option.count"));
-				for(var l = 0; l < itemOptionsLength; l++)
-				{
-					item.addOption(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].option["+l+"].name","string"), getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].option["+l+"].value", getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].item["+k+"].option["+l+"].type", "string")));
-				}
-				
-				group.addChild(item);
-			}
-			
-			groupOptionsLength = parseInt(getKrPanoInstance().get("ptplugin["+pPlugID+"].internaldata.group["+j+"].option.count"));
-			for(var m = 0; m < groupOptionsLength; m++)
-			{
-				group.addOption(getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].option["+m+"].name","string"), getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].option["+m+"].value", getKrValue("ptplugin["+pPlugID+"].internaldata.group["+j+"].option["+m+"].type", "string")));
-			}
-			
-			kolorMenu.addKolorMenuGroup(group);
-		}
-		
-		//KolorMenu is now ready
-		kolorMenu.setReady(true);
-		//call ready statement for krpano script
-		invokeKrFunction("kolorMenuJsReady_"+pPlugID);
-		
-		//Display the menu
-		kolorMenu.openKolorMenu();
-	}
-}
-
-/**
- * @function
- * @description Update and populate kolorMenu.
- * @param {String} pPlugID The name of the plugin you want to update.
- * @return {void} 
- */
-function updateKolorMenu(pPlugID)
-{
-	if(debug) { console.log("updateKolorMenu "+pPlugID); }
-
-	//Check if the KolorMenu is loaded
-	if(ktools.KolorPluginList.getInstance().getPlugin(pPlugID).isInitialized() && typeof KolorMenu != "undefined" && ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered() != null)
-	{
-		//Get the registered instance of KolorMenu
-		var kolorMenu = ktools.KolorPluginList.getInstance().getPlugin(pPlugID).getRegistered();
-		
-		//If kolorMenu is ready, update datas
-		if(kolorMenu.isReady())
-		{
-			var groups = kolorMenu.getKolorMenuGroups();
-			var groupsLength = groups.size();
-			var itemsLength = 0;
-			var group, item;
-			
-			for(var i = 0; i < groupsLength; i++)
-			{
-				group = groups.get(i);
-				itemsLength = group.getChildren().size();
-				
-				if(group.getSubMenu()){
-					group.setTitle(ktools.I18N.getInstance().getMessage(group.getI18nText()));
-				}
-				
-				if(group.hasChildren() && itemsLength > 0){
-					for(var j = 0; j < itemsLength; j++){
-						item = group.getChildren().get(j);
-						item.setTitle(ktools.I18N.getInstance().getMessage(item.getI18nText()));
-					}
-				}
-			}
-		}
-	}
-}
-
-/**
- * @function
- * @description Delete kolorMenu.
- * @param {String} pPlugID The name of the plugin you want to delete.
- * @return {void} 
- */
-function deleteKolorMenu(pPlugID)
 {
 	if(ktools.KolorPluginList.getInstance().getPlugin(pPlugID)){
 		ktools.KolorPluginList.getInstance().removePlugin(pPlugID);

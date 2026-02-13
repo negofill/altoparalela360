@@ -76,10 +76,89 @@
   </action>
 
 
-
   <action name="startbehavioursxmlcompleteaction">
-    events.dispatch(onPanoStart);
+    if (skipintro !== null,
+      set(tour_firstlittleplanet, false);
+      events.dispatch(onPanoStart);
+    ,
+
+
+    events.dispatch(onPanoStart, true);
+    );
   </action>
+
+
+  <layer name="splashscreenlayerbg"
+         keep="true"
+         align="center"
+         type="container"
+         width="100%" height="100%"
+         bgalpha="0.51764705882352946"
+         bgcolor="0x3c3c3c"
+         preload="true"
+         onclick="hideintroimage(true);"
+         bgcapture="true"
+         zorder="98"
+         enabled="true"/>
+  <action name="preload_splashscreen" autorun="preinit">
+    addlayer(splashscreenlayer);
+    set(layer[splashscreenlayer].visible, true);
+    set(layer[splashscreenlayer].align, center);
+    set(layer[splashscreenlayer].zorder, 99);
+    set(layer[splashscreenlayer].keep, true);
+    set(layer[splashscreenlayer].onclick, hideintroimage(true));
+    set(layer[splashscreenlayer].alpha, 1.0);
+    set(layer[splashscreenlayer].onloaded, resize_splashscreen());
+    set(layer[splashscreenlayer].url, '%FIRSTXML%/graphics/splash_1.png');
+  </action>
+  <action name="resize_splashscreen">
+    if(layer[splashscreenlayer].url,
+      set(resizedwidth, get(layer[splashscreenlayer].width));
+      set(resizedheight, get(layer[splashscreenlayer].height));
+      set(resizedstagewidth, get(stagewidth));
+      set(resizedstageheight, get(stageheight));
+      if(resizedwidth GT resizedstagewidth,
+        mul(tempresizedheight, get(resizedheight), get(resizedstagewidth));
+        div(tempresizedheight, get(resizedwidth));
+        Math.round(tempresizedheight);
+        set(resizedwidth, get(resizedstagewidth));
+        set(resizedheight, get(tempresizedheight));
+        delete(tempresizedheight);
+      );
+      if(resizedheight GT resizedstageheight,
+        mul(tempresizedwidth, get(resizedwidth), get(resizedstageheight));
+        div(tempresizedwidth, get(resizedheight));
+        Math.round(tempresizedwidth);
+        set(resizedheight, get(resizedstageheight));
+        set(resizedwidth, get(tempresizedwidth));
+        delete(tempresizedwidth);
+      );
+      set(layer[splashscreenlayer].width , get(resizedwidth));
+      set(layer[splashscreenlayer].height, get(resizedheight));
+      delete(resizedstagewidth,resizedwidth,resizedstageheight,resizedheight);
+    ,
+      delayedcall(0.2,resize_splashscreen(););
+    );
+  </action>
+  <action name="hideintroimage">
+      tween(layer[splashscreenlayer].alpha, 0.0, 0.5, default,
+        tween(layer[splashscreenlayerbg].alpha , 0.0, 0.5, default,
+          hideintroimagetreatment();
+        );
+      );
+  </action>
+  <action name="hideintroimagetreatment">
+    removelayer(splashscreenlayer);
+
+    events.dispatch(onTourStart, true);
+    removelayer(splashscreenlayerbg);
+  </action>
+
+  <action name="skipintroaction">
+
+    removelayer(splashscreenlayerbg);
+    removelayer(splashscreenlayer);
+   </action>
 
 
 
