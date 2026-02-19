@@ -703,17 +703,18 @@ floorPlanActivateDefaultSpot();););
 		<item name="item_2" title="gallerypicture_title1" caption="gallerypicture_caption1" value="indexdata/graphics/gallery/alto_paralela_06_noturna_08_-_piscina.jpg"/>
 		<item name="item_3" title="gallerypicture_title2" caption="gallerypicture_caption2" value="indexdata/graphics/gallery/alto_paralela_fotomontagem_dji_20250719131912_0115_d.jpg"/>
 		<item name="item_4" title="gallerypicture_title3" caption="gallerypicture_caption3" value="indexdata/graphics/gallery/alto_paralela_fotomontagem_dji_20250719132531_0133_d.jpg"/>
-		<item name="item_5" title="gallerypicture_title4" caption="gallerypicture_caption4" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_aerea_geral2_copy.jpg"/>
-		<item name="item_6" title="gallerypicture_title5" caption="gallerypicture_caption5" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_aerea_lazer.jpg"/>
-		<item name="item_7" title="gallerypicture_title6" caption="gallerypicture_caption6" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_area_gourmet.jpg"/>
-		<item name="item_8" title="gallerypicture_title7" caption="gallerypicture_caption7" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_bicicletario.jpg"/>
-		<item name="item_9" title="gallerypicture_title8" caption="gallerypicture_caption8" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_fachada_diurna.jpg"/>
-		<item name="item_10" title="gallerypicture_title9" caption="gallerypicture_caption9" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_guarita.jpg"/>
-		<item name="item_11" title="gallerypicture_title10" caption="gallerypicture_caption10" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_mall_comercial.jpg"/>
-		<item name="item_12" title="gallerypicture_title11" caption="gallerypicture_caption11" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_parque_infantil_copy.jpg"/>
-		<item name="item_13" title="gallerypicture_title12" caption="gallerypicture_caption12" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_pet_place.jpg"/>
-		<item name="item_14" title="gallerypicture_title13" caption="gallerypicture_caption13" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_piscina.jpg"/>
-		<item name="item_15" title="gallerypicture_title14" caption="gallerypicture_caption14" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_quadra_de_esportes.jpg"/>
+		<item name="item_5" title="gallerypicture_title4" caption="gallerypicture_caption4" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_aerea_geral2.jpg"/>
+		<item name="item_6" title="gallerypicture_title5" caption="gallerypicture_caption5" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_aerea_lazer_02.jpg"/>
+		<item name="item_7" title="gallerypicture_title6" caption="gallerypicture_caption6" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_apartamento_-_giardino_r02_cam_1.rgb_color.0000 copy.jpg"/>
+		<item name="item_8" title="gallerypicture_title7" caption="gallerypicture_caption7" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_area_gourmet.jpg"/>
+		<item name="item_9" title="gallerypicture_title8" caption="gallerypicture_caption8" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_bicicletario.jpg"/>
+		<item name="item_10" title="gallerypicture_title9" caption="gallerypicture_caption9" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_fachada_diurna.jpg"/>
+		<item name="item_11" title="gallerypicture_title10" caption="gallerypicture_caption10" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_guarita.jpg"/>
+		<item name="item_12" title="gallerypicture_title11" caption="gallerypicture_caption11" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_mall_comercial.jpg"/>
+		<item name="item_13" title="gallerypicture_title12" caption="gallerypicture_caption12" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_parque_infantil_copy.jpg"/>
+		<item name="item_14" title="gallerypicture_title13" caption="gallerypicture_caption13" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_pet_place.jpg"/>
+		<item name="item_15" title="gallerypicture_title14" caption="gallerypicture_caption14" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_piscina.jpg"/>
+		<item name="item_16" title="gallerypicture_title15" caption="gallerypicture_caption15" value="indexdata/graphics/gallery/stanza_-_alto_paralela_-_quadra_de_esportes.jpg"/>
 	</internaldata>
 </ptplugin>
 

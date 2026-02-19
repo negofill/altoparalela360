@@ -13,8 +13,8 @@
   <data name="en_pano13_title"><![CDATA[Living]]></data>
   <data name="en_pano10_title"><![CDATA[Cozinha]]></data>
   <data name="en_pano14_title"><![CDATA[Varanda]]></data>
-  <data name="en_pano11_title"><![CDATA[Quarto Casal]]></data>
-  <data name="en_pano12_title"><![CDATA[Quarto 02]]></data>
+  <data name="en_pano11_title"><![CDATA[Quarto 02]]></data>
+  <data name="en_pano12_title"><![CDATA[Quarto casal]]></data>
 
 
 
@@ -69,6 +69,8 @@
   <data name="en_gallerypicture_caption13"><![CDATA[]]></data>
   <data name="en_gallerypicture_title14"><![CDATA[]]></data>
   <data name="en_gallerypicture_caption14"><![CDATA[]]></data>
+  <data name="en_gallerypicture_title15"><![CDATA[]]></data>
+  <data name="en_gallerypicture_caption15"><![CDATA[]]></data>
   <data name="en_logowebsiteurl"><![CDATA[https://stanza.com.br/empreendimentos/stanza-paralela-salvador/]]></data>
   <data name="en_logotooltipText"><![CDATA[]]></data>
   <data name="en_gallery1play_text"><![CDATA[Play / Pause]]></data>
